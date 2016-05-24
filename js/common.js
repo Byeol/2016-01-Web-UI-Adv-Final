@@ -1,6 +1,6 @@
 "use strict";
 
-const apiBaseUrl = "http://128.199.76.9:8002/";
+const apiBaseUrl = "http://128.199.76.9:8002";
 
 const SELECTORS = {
   TODO_TEMPLATE: "#todo-template",

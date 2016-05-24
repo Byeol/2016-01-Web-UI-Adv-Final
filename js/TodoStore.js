@@ -1,9 +1,9 @@
 "use strict";
 
-define(["jquery"], ($) => class TodoStore {
-  constructor() {
+define(["jquery", "common"], ($, {apiBaseUrl}) => class TodoStore {
+  constructor(nickname) {
+    this.baseUrl = `${apiBaseUrl}/${nickname}`;
     this.cache = {};
-    this.count = 15;
   }
 
   findAll(start, limit) {
@@ -14,29 +14,20 @@ define(["jquery"], ($) => class TodoStore {
       return Promise.resolve(this.cache[cacheKey]);
     }
 
-    let todos = [];
-    limit = Math.min(limit, this.count - start);
+    let url = `${this.baseUrl}/page?start=${start}&limit=${limit}`;
+    let promise = Promise.resolve($.get(url));
 
-    for (let i = 0; i < limit; i++) {
-      todos.push({
-        "id": start + i + 1,
-        "todo": "할 일 " + (start + i + 1),
-        "nickname": "mixed",
-        "completed": 0,
-        "date": "2014-06-25T05:38:12.000Z"
-      });
-    }
+    promise.then(todos => {
+      this.cache[cacheKey] = todos;
+    });
 
-    this.cache[cacheKey] = todos;
-
-    return Promise.resolve(todos);
+    return promise;
   }
 
   getCount() {
-    let count = {
-      "cnt": this.count
-    };
+    let url = `${this.baseUrl}/count`;
+    let promise = Promise.resolve($.get(url));
 
-    return Promise.resolve(count);
+    return promise;
   }
 });
