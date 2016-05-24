@@ -1,0 +1,12 @@
+{
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "quote-props": [
+      2,
+      "consistent"
+    ],
+    "require-jsdoc": 0
+  }
+}

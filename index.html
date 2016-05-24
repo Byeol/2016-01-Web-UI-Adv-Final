@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Template • TodoMVC</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+  <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+</head>
+
+<body>
+  <style type="text/css">
+    .todo-list li label.not-found {
+      margin-left: 5px;
+      color: #4d4d4d;
+    }
+    .todo-list.active li.completed {
+      display: none;
+    }
+    .todo-list.completed li:not(.completed) {
+      display: none;
+    }
+  </style>
+
+  <section class="todoapp">
+    <header class="header">
+      <h1>todos</h1>
+      <form class="new-todo-wrapper">
+        <input class="new-todo" placeholder="What needs to be done?" autofocus>
+      </form>
+    </header>
+    <section class="main">
+      <input class="toggle-all" type="checkbox">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul class="todo-list">
+      </ul>
+    </section>
+    <footer class="footer">
+      <span class="todo-count"><strong>0</strong> item left</span>
+      <ul class="filters">
+        <li>
+          <a class="selected" href="#/">All</a>
+        </li>
+        <li>
+          <a href="#/active">Active</a>
+        </li>
+        <li>
+          <a href="#/completed">Completed</a>
+        </li>
+      </ul>
+      <button class="clear-completed">Clear completed</button>
+    </footer>
+  </section>
+  <nav>
+    <ul class="pagination">
+    </ul>
+  </nav>
+
+  <footer class="info">
+    <p>Double-click to edit a todo</p>
+  </footer>
+  <script id="todo-list-template" type="text/x-handlebars-template">
+    {{#each todo}}
+      {{> todoItem}}
+    {{else}}
+      <li>
+        <div class="view">
+          <label class="not-found">등록된 TODO가 없습니다.</label>
+        </div>
+      </li>
+    {{/each}}
+  </script>
+  <script id="todo-template" type="text/x-handlebars-template">
+    <li data-id="{{id}}" data-nickname="{{nickname}}" class="{{#if completed}} completed {{/if}}">
+      <div class="view">
+        <input class="toggle" type="checkbox" {{#if completed}} checked {{/if}}>
+        <label>{{todo}}</label>
+        <button class="destroy"></button>
+      </div>
+      <input class="edit" value="{{todo}}">
+    </li>
+  </script>
+
+  <script data-main="js/main" src="node_modules/requirejs/require.js"></script>
+</body>
+
+</html>
